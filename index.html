@@ -1,0 +1,2101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>our day</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === FORCE FONT FOR LETTER BACK SIDE === */
+        .letters-container .card-side.back p {
+    font-family: 'Georgia', 'Times New Roman', serif !important; /* font formal */
+    font-size: 0.7em; /* lebih kecil dari sebelumnya */
+    color: #3b2f2f;
+    letter-spacing: 0.2px;
+    line-height: 1.2;
+}
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --pink:  #8fc9ff;
+            --light-pink: #ffeff6;
+            --blue: #7ec0ff;
+            --light-blue: #e6f2ff;
+            --light-gray: #f8f8f8;
+            --border-radius: 12px;
+            --container-padding: 20px;
+            --element-spacing: 16px;
+            --section-max-width: 1200px;
+        }
+
+        body {
+    background-color: #8fc9ff;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+
+
+        /* Browser Window Styling */
+        .browser-window {
+            width: 95%;
+            max-width: var(--section-max-width);
+            margin: 20px auto;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(233, 157, 157, 0.171);
+            animation: fadeIn 0.8s ease-out;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 90vh;
+        }
+
+        .browser-header {
+            background: #f5f5f5;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+            flex-shrink: 0;
+        }
+
+        .browser-buttons {
+            display: flex;
+            gap: 8px;
+            margin-right: 15px;
+        }
+
+        .browser-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .browser-button.close {
+            background: #ff5f57;
+        }
+
+        .browser-button.minimize {
+            background: #ffbd2e;
+        }
+
+        .browser-button.maximize {
+            background: #28ca42;
+        }
+
+        .url-bar {
+            flex: 1;
+            background: white;
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 14px;
+            color: #666;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .url-bar i {
+            color:  #8fc9ff;
+        }
+
+        .url-text {
+            flex: 1;
+        }
+
+        /* Content Area */
+        .browser-content {
+            padding: var(--container-padding);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+    padding: var(--container-padding);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+        .logo {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 800;
+            margin-bottom: 10px;
+            color:  #8fc9ff;
+            animation: none;
+        }
+
+        .tagline {
+            color: #777;
+            font-size: clamp(14px, 2vw, 16px);
+            margin-bottom: 30px;
+        }
+
+        .search-container {
+    width: 90%;
+    max-width: 600px;
+    margin: 15px auto 25px; /* sebelumnya 40px auto */
+    animation: slideUp 0.8s ease-out 0.2s both;
+}
+
+
+        .search-box {
+            width: 100%;
+            padding: clamp(14px, 3vw, 18px) clamp(18px, 4vw, 25px);
+            border-radius: 30px;
+            border: 2px solid #f0f0f0;
+            font-size: clamp(14px, 2vw, 16px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s;
+            background: white;
+        }
+
+        .search-box:focus {
+            outline: none;
+            box-shadow: 0 5px 20px rgba(255, 126, 185, 0.2);
+            border-color:  #8fc9ff;
+            transform: translateY(-3px);
+        }
+
+        /* Menu Layout - Always horizontal and perfectly aligned */
+        .menu-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: clamp(10px, 2vw, 25px);
+            margin: 40px auto 0;
+            padding: 0 var(--container-padding);
+            animation: slideUp 0.8s ease-out 0.4s both;
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .menu-item {
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            min-width: 0; /* Allow flex items to shrink properly */
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px) scale(1.05);
+        }
+
+        .menu-image {
+            width: clamp(70px, 16vw, 110px);
+            height: clamp(70px, 16vw, 110px);
+            border-radius: 22px;
+            background-color: var(--light-gray);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color:  #8fc9ff;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s;
+            overflow: hidden;
+        }
+
+        .menu-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* biar foto nggak gepeng */
+            border-radius: 22px;
+            }
+
+
+        .menu-item:hover .menu-image {
+            background-color: white;
+            border: none;
+            box-shadow: 0 12px 25px rgba(143, 201, 255, 0.3);
+        }
+
+
+        .menu-title {
+            font-weight: 600;
+            color: #555;
+            font-size: clamp(13px, 1.8vw, 16px);
+            transition: color 0.3s;
+            line-height: 1.3;
+        }
+
+        .menu-item:hover .menu-title {
+            color:  #8fc9ff;
+        }
+
+        .content {
+            flex: 1;
+            padding: var(--container-padding);
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+            width: 100%;
+        }
+
+        .active {
+            display: flex;
+            flex-direction: column;
+        }
+
+            /* === CHAT QUIZ FIX === */
+        .chat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+            height: 65px;
+            background-color: #fff;
+        }
+
+        .chat-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #8fc9ff;
+            object-fit: cover;  
+        }
+
+        .chat-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #8fc9ff
+            ;
+        }
+
+        .chat-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 18px;
+            color: #8fc9ff;
+        }
+
+        .chat-divider {
+            border: none;
+            border-top: 1px solid #f0f0f0;
+            margin: 0 60px 20px;
+        }
+
+        /* CHAT CONTAINER */
+        #quiz .chat-container {
+            display: flex;
+            flex-direction: column;
+            max-width: 100%;
+            padding: 0 60px 40px;
+            box-sizing: border-box;
+            gap: 15px;
+        }
+
+        /* PERTANYAAN - KIRI */
+        #quiz .chat-bubble.left {
+            background-color: #8fc9ff;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 18px;
+            max-width: 60%;
+            align-self: flex-start;
+            margin-right: auto;
+            margin-left: 0;
+        }
+
+        /* JAWABAN - KANAN BANGET */
+        #answerRow {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+            width: 100%;
+        }
+
+        #answerRow .chat-bubble {
+    background-color: #8fc9ff;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 18px;
+    cursor: pointer;
+    max-width: 50%;
+    align-self: flex-start;
+    margin-right: auto;
+    margin-left: 40px !important;
+    transition: all 0.3s ease;
+}
+
+
+        #answerRow .chat-bubble:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(248, 156, 171, 0.4);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+        .chat-header {
+            padding: 0 20px;
+        }
+        
+        .chat-divider {
+            margin: 0 20px 20px;
+        }
+        
+        #quiz .chat-container {
+            padding: 0 20px 40px;
+        }
+        
+        #answerRow .chat-bubble {
+            margin-right: 20px !important;
+            max-width: 65%;
+        }
+        }
+
+
+        /* Popup Styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .popup-content {
+            background-color: rgb(255, 255, 255);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 320px;
+            width: 90%;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            animation: popIn 0.4s ease-out;
+            border: none;
+        }
+
+        .popup-message {
+            font-size: clamp(17px, 3vw, 20px);
+            margin-bottom: 20px;
+            color:  #000000;
+            line-height: 1.4;
+        }
+
+        .popup-button {
+            padding: 10px 22px;
+            background-color: var(--blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(126, 192, 255, 0.3);
+        }
+
+        .popup-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(126, 192, 255, 0.4);
+        }
+
+        /* Letters Styles - Card Fan Layout */
+       /* === LETTER FLIP FIX (SAMA KAYAK GALLERY) === */
+/* === FIXED: FULL 3D FLIP LIKE GALLERY === */
+            .letters-container {
+            position: relative;
+            height: 55vh;
+            min-height: 380px;
+            width: 100%;
+            background: transparent;
+            overflow: visible;
+            flex: 1;
+            margin-bottom: 20px;
+            }
+
+            .letter {
+            position: absolute;
+            width: clamp(160px, 40vw, 190px); /* dikurangi lebarnya */
+            height: clamp(190px, 35vw, 250px); /* biarkan tinggi tetap */
+            perspective: 1000px;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: all 0.6s ease;
+            transform-origin: center center;
+            }
+
+
+            /* --- Fade + Zoom Letters --- */
+            .card-side {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: opacity 0.5s ease;
+            }
+
+            .card-side img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;      /* gambar isi penuh kotak */
+            object-position: center; /* posisi tengah */
+            border-radius: 12px;    /* biar sudutnya tetap lembut */
+            transition: transform 0.4s ease;
+            display: block;
+            }
+
+
+
+            .card-side.front {
+            opacity: 1;
+            z-index: 2;
+            }
+
+            .card-side.back {
+            opacity: 0;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: #e6f4ff;
+            font-size: 1em;
+            color: #202741;
+            text-align: center;
+            line-height: 1.5em;
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1);
+            font-family: 'DM Serif Text', cursive !important;
+            }
+
+
+            .letter.focused {
+            transform: translate(-50%, -50%) scale(1.7) !important;
+            }
+
+
+
+
+            /* Fade control */
+            .letter.show-back .card-side.front {
+            opacity: 0;
+            }
+
+            .letter.show-back .card-side.back {
+            opacity: 1;
+            }
+
+            /* Other letters blur when one is open */
+            .letter.blurred {
+            filter: blur(3px);
+            opacity: 0.6;
+            }
+
+
+            /* focus: bring to center and enlarge */
+            .letter.focused {
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) scale(1.6) !important;
+            z-index: 200;
+            }
+
+            /* blur non-focused */
+            .letter.blurred {
+            filter: blur(3px);
+            opacity: 0.6;
+            }
+
+
+
+        /* Initial fan layout positions */
+        .letter:nth-child(1) {
+            top: 45%;
+            left: 25%;
+            transform: translateY(-50%) rotate(-15deg);
+            background-color: #e6f4ff;
+            z-index: 1;
+        }
+
+            .letter:nth-child(2) {
+            top: 43%;
+            left: 35%;
+            transform: translateY(-50%) rotate(-7deg);
+            background-color: #e6f4ff;
+            z-index: 2;
+        }
+
+            .letter:nth-child(3) {
+            top: 41%;
+            left: 45%;
+            transform: translateY(-50%) rotate(0deg);
+            background-color: #e6f4ff;
+            z-index: 3;
+        }
+
+            .letter:nth-child(4) {
+            top: 43%;
+            left: 55%;
+            transform: translateY(-50%) rotate(7deg);
+            background-color: #ffeeee;
+            z-index: 4;
+        }
+
+            .letter:nth-child(5) {
+            top: 45%;
+            left: 65%;
+            transform: translateY(-50%) rotate(15deg);
+            background-color: #ffeeee;
+            z-index: 5;
+        }
+
+
+        .letter.focused {
+            transform: translate(-50%, -50%) scale(1.8) !important;
+            top: 50% !important;
+            left: 50% !important;
+            z-index: 100;
+            box-shadow: none;
+            cursor: default;
+        }
+
+        .letter.blurred {
+            filter: none;
+            opacity: 1; /* biar gak transparan */
+        }
+
+
+        .letter:hover:not(.focused) {
+            transform: rotate(0deg) scale(1.05);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+        }
+
+        .letter-content {
+            font-family: 'Balsamiq Sans', cursive, sans-serif;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fa0000;
+            font-size: clamp(15px, 2vw, 17px);
+            line-height: 1.4;
+        }
+
+        .letters-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .letters-btn {
+            padding: 10px 20px;
+            background-color: #8fc9ff;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: clamp(13px, 2vw, 15px);
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 126, 185, 0.3);
+        }
+
+        .letters-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 126, 185, 0.4);
+        }
+
+        /* === GALLERY FIX - 3 KOLOM DI SEMUA DEVICE === */
+.gallery-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 KOLOM SELALU */
+    gap: 8px;
+    justify-items: center;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Container foto persegi 1:1 */
+.photo-container {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    position: relative;
+    perspective: 1000px;
+}
+
+.photo-spinner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease-in-out;
+    cursor: pointer;
+}
+
+.photo-spinner.flipped {
+    transform: rotateY(180deg);
+}
+
+.photo-front,
+.photo-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    backface-visibility: hidden;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.photo-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 8px;
+    display: block;
+}
+
+.photo-back {
+    background: linear-gradient(to bottom right, #8fc9ff, #8fc9ff);
+    color: #566c7a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Balsamiq Sans', cursive;
+    font-size: 0.7rem;
+    transform: rotateY(180deg);
+    padding: 6px;
+    flex-direction: column;
+    border-radius: 8px;
+    line-height: 1.2;
+}
+
+.hidden-message {
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.message-subtitle {
+    font-size: 0.65rem;
+    opacity: 0.8;
+    line-height: 1.2;
+}
+
+/* === RESPONSIVE TETAP 3 KOLOM === */
+@media (max-width: 768px) {
+    .gallery-grid {
+        gap: 6px;
+        padding: 8px;
+        /* TETAP 3 KOLOM */
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-grid {
+        gap: 4px; /* Gap lebih kecil biar muat 3 kolom */
+        padding: 5px;
+        /* TETAP 3 KOLOM */
+    }
+    
+    .photo-back {
+        padding: 4px;
+        font-size: 0.65rem;
+    }
+    
+    .hidden-message {
+        font-size: 0.75rem;
+    }
+    
+    .message-subtitle {
+        font-size: 0.6rem;
+    }
+}
+
+/* Untuk HP sangat kecil, tetap 3 kolom */
+@media (max-width: 360px) {
+    .gallery-grid {
+        gap: 3px;
+    }
+    
+    .photo-back {
+        padding: 3px;
+        font-size: 0.6rem;
+    }
+    
+    .hidden-message {
+        font-size: 0.7rem;
+    }
+    
+    .message-subtitle {
+        font-size: 0.55rem;
+    }
+}
+
+
+        /* Apple Music Inspired Player - Redesigned with Fixed Layout */
+        .playlist-container {
+            width: 90%;
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .player-header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #8fc9ff;
+            font-size: clamp(22px, 3vw, 26px);
+            line-height: 1.3;
+            font-weight: 700;
+        }
+
+        .player-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: none; /* HAPUS SHADOW */
+            border: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .album-art {
+            width: 180px;
+            height: 180px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #8fc9ff, #8fc9ff, #8fc9ff);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0px 0px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .album-art::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+            z-index: 1;
+        }
+
+        .album-art i {
+            font-size: 60px;
+            color: white;
+            opacity: 0.9;
+            z-index: 2;
+            position: relative;
+        }
+
+        /* Player Controls at Top */
+        .player-controls-top {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            margin: 10px 0 20px;
+        }
+
+        .control-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 18px;
+            color: #1d1d1f;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .control-btn:hover {
+            background: #f5f5f7;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .play-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #fbc2eb, #fbc2eb);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(255, 126, 185, 0.3);
+            transition: all 0.3s ease;
+            color: white;
+            font-size: 22px;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 126, 185, 0.4);
+        }
+
+        /* Redesigned Track List with Fixed Layout */
+        .track-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .track-item {
+            display: flex;
+            align-items: center;
+            padding: 14px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            border: 1px solid transparent;
+            position: relative;
+        }
+
+        .track-item:hover {
+            background: #f1f3f4;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .track-item.active {
+  background: #f8f9fa; /* warna dasar semua */
+  border: none;
+  box-shadow: none;
+  transform: none;
+  transition: none;
+  color: #333;
+}
+
+
+        .track-number {
+            width: 24px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 500;
+            color: #86868b;
+            margin-right: 16px;
+        }
+
+        .track-item.active .track-number {
+            color:  #8FC9FF;
+            font-weight: 600;
+        }
+
+        .track-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .track-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
+            color: #1d1d1f;
+        }
+
+        .track-artist {
+            font-size: 14px;
+            color: #86868b;
+        }
+
+        .track-duration {
+            font-size: 14px;
+            color: #86868b;
+            font-weight: 500;
+            margin-right: 12px;
+        }
+
+        .track-play-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color:  #8fc9ff;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .track-item.active .track-play-icon {
+            opacity: 1;
+        }
+
+        .progress-container {
+            background-color: #e0e0e0;
+            height: 4px;
+            border-radius: 2px;
+            margin: 20px 0 10px;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #8fc9ff, #8fc9ff);
+            border-radius: 2px;
+            width: 30%;
+            transition: width 0.1s linear;
+            position: relative;
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #86868b;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        /* Smaller back button */
+        .back-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color:  #8fc9ff;
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(143, 201, 255, 0.3);
+            width: 36px;
+            height: 36px;
+            font-size: 14px;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(143, 201, 255, 0.4);
+        }
+
+
+        /* === Music Player Display (judul di atas tombol + tombol di tengah) === */
+.music-player-display {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* === Music Player Display (judul di atas tombol + tombol di tengah) === */
+.music-player-display {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.now-playing-title {
+  font-weight: 600;
+  font-size: 16px;
+  color: #000000;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+}
+
+.player-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+}
+
+/* Tombol Player — warna pink seperti progress bar */
+.play-btn,
+.control-btn {
+  background:  #8fc9ff;  /* warna pink lembut sama kayak progress bar */
+  border: none;
+  padding: 12px 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(194, 194, 194, 0.3); /* bayangan pink */
+  transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.play-btn:hover,
+.control-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(199, 199, 199, 0.45);
+  background: #8fc9ff; /* lebih terang pas di-hover */
+}
+
+.play-btn i,
+.control-btn i {
+  color: white; /* icon jadi putih biar kontras */
+  font-size: 18px;
+}
+
+
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        @keyframes popIn {
+            0% { 
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% { 
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+                .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+            :root {
+                --container-padding: 15px;
+                --element-spacing: 12px;
+            }
+            
+            .browser-window {
+                width: 98%;
+                margin: 10px auto;
+                min-height: 100dvh
+            }
+            
+            .letters-container {
+                height: 50vh;
+            }
+            
+            .letter.focused {
+                transform: translate(-50%, -50%) scale(1.5) !important;
+            }
+            
+            .photo-container {
+                min-width: 80%;
+                max-width: 80%;
+                height: 40vh;
+            }
+            
+            /* Perfect horizontal menu on mobile */
+            .menu-container {
+                gap: 8px;
+                max-width: 600px;
+            }
+            
+            .menu-image {
+                width: 65px;
+                height: 65px;
+            }
+            
+            .menu-title {
+                font-size: 12px;
+            }
+            
+            .player-card {
+                padding: 20px;
+            }
+            
+            .album-art {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .track-item {
+                padding: 12px 14px;
+            }
+            
+            .track-title {
+                font-size: 15px;
+            }
+            
+            .track-artist {
+                font-size: 13px;
+            }
+            
+            .player-controls-top {
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+    }
+
+            :root {
+                --container-padding: 12px;
+            }
+            
+            /* Maintain perfect horizontal layout */
+            .menu-container {
+                gap: 6px;
+                max-width: 500px;
+            }
+            
+            .menu-item {
+                min-width: 0;
+            }
+            
+            .menu-image {
+                width: 58px;
+                height: 58px;
+                border-radius: 18px;
+            }
+            
+            .menu-title {
+                font-size: 11px;
+            }
+            
+            .letters-controls,
+            .gallery-controls {
+                flex-direction: row; /* Keep buttons horizontal */
+                gap: 10px;
+            }
+            
+            .photo-container {
+                min-width: 85%;
+                max-width: 85%;
+                height: 35vh;
+            }
+            
+            .letter {
+                width: 130px;
+                height: 170px;
+                padding: 15px;
+            }
+            
+            .letter.focused {
+                transform: translate(-50%, -50%) scale(1.3) !important;
+            }
+            
+            .player-card {
+                padding: 18px;
+            }
+            
+            .album-art {
+                width: 130px;
+                height: 130px;
+            }
+            
+            .player-controls-top {
+                gap: 15px;
+            }
+            
+            .control-btn {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .play-btn {
+                width: 55px;
+                height: 55px;
+            }
+            
+            .track-item {
+                padding: 10px 12px;
+            }
+            
+            .track-number {
+                margin-right: 12px;
+            }
+        }
+
+        /* Extra small devices - maintain perfect horizontal layout */
+        @media (max-width: 360px) {
+            .menu-container {
+                gap: 4px;
+                max-width: 320px;
+            }
+            
+            .menu-image {
+                width: 50px;
+                height: 50px;
+                border-radius: 15px;
+                margin-bottom: 8px;
+            }
+            
+            .menu-title {
+                font-size: 10px;
+            }
+            
+            .search-box {
+                padding: 12px 18px;
+            }
+            
+            .letter.focused {
+                transform: translate(-50%, -50%) scale(1.2) !important;
+            }
+            
+            .player-card {
+                padding: 15px;
+            }
+            
+            .album-art {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .track-item {
+                padding: 8px 10px;
+            }
+            
+            .track-number {
+                margin-right: 10px;
+                font-size: 14px;
+            }
+            
+            .track-title {
+                font-size: 14px;
+            }
+            
+            .track-artist {
+                font-size: 12px;
+            }
+            
+            .player-controls-top {
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Browser Window -->
+    <div class="browser-window">
+        <div class="browser-header">
+            <div class="browser-buttons">
+                <div class="browser-button close"></div>
+                <div class="browser-button minimize"></div>
+                <div class="browser-button maximize"></div>
+            </div>
+            <div class="url-bar">
+                <i class="fas fa-heart"></i>
+                <div class="url-text">lucky to be loved by you.</div>
+                <i class="fas fa-lock"></i>
+            </div>
+        </div>
+        
+        <div class="browser-content">
+            <!-- Home Page -->
+            <div id="home" class="content active">
+                <header>
+                    <div class="logo">Luminious Milestone</div>
+                    <div class="tagline">In a world full of temporary things, you are my forever</div>
+                </header>
+                
+                <div class="search-container">
+                    <input type="text" class="search-box" placeholder="looking for our memories">
+                </div>
+                
+                <div class="menu-container">
+  <!-- QUIZ -->
+  <div class="menu-item" onclick="showContent('quiz')">
+    <div class="menu-image">
+      <img src="images/Poems.png" alt="Poems Menu">
+    </div>
+    <div class="menu-title">Poems</div>
+  </div>
+
+  <!-- LETTERS -->
+  <div class="menu-item" onclick="showContent('letters')">
+    <div class="menu-image">
+      <img src="images/26.05.png" alt="26.05 Menu">
+    </div>
+    <div class="menu-title">26.05</div>
+  </div>
+
+  <!-- GALLERY -->
+  <div class="menu-item" onclick="showContent('gallery')">
+    <div class="menu-image">
+      <img src="images/Bububey.png" alt="Bububey Menu">
+    </div>
+    <div class="menu-title">Bububey</div>
+  </div>
+
+  <!-- PLAYLIST -->
+  <div class="menu-item" onclick="showContent('playlist')">
+    <div class="menu-image">
+      <img src="images/Us.png" alt="Us Menu">
+    </div>
+    <div class="menu-title">Us</div>
+  </div>
+</div>
+
+            </div>
+            
+<div id="quiz" class="content">
+  <button class="back-btn" onclick="showContent('home')">
+    <i class="fas fa-arrow-left"></i>
+  </button>
+
+  <div class="chat-header">
+    <div class="chat-left">
+      <img src="images/profile.jpeg" alt="profile" class="chat-avatar">
+      <span class="chat-name">love of my life</span>
+    </div>
+    <div class="chat-right">
+      <i class="fas fa-phone"></i>
+      <i class="fas fa-video"></i>
+      <i class="fas fa-ellipsis-v"></i>
+    </div>
+  </div>
+  <hr class="chat-divider">
+
+  <!-- FINAL VERSION - EXTRA RIGHT -->
+   <div id="answerRow" style="display: flex; flex-direction: column; align-items: flex-start; gap: 8px; width: 100%;">
+  <div class="chat-container" id="chatContainer" style="display: flex; flex-direction: column; width: 100%; gap: 10px;">
+    
+    <!-- Pertanyaan di KIRI -->
+    <div style="align-self: flex-start; background-color: #8fc9ff; color: white; padding: 12px 16px; border-radius: 16px; max-width: 70%; margin-right: auto;">
+      In the quiet of the night,
+You are my radiant, ephemeral light.
+Not a fleeting spark, nor a passing flame,
+But a profound rhythm that whispers your name.
+You are the sanctuary where my spirit finds rest,
+An exquisite soul, by whom I am blest.
+Beyond the boundaries of mere prose or art,
+You remain the eternal anchor of my heart.
+
+    </div>
+    
+    
+  </div>
+</div>
+</div>
+            
+           <!-- Letters Page (Fade + Zoom Smooth) -->
+        <div id="letters" class="content">
+        <button class="back-btn" onclick="showContent('home')">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+
+        <!-- Letters Page (Fade + Zoom Smooth) -->
+<h2 class="player-header" style="text-align: center; margin-bottom: 30px; font-size: 25px;">
+    open it, open it! I left a tiny piece of my heart inside:p
+</h2>
+
+
+<div class="letters-container" id="lettersContainer">
+
+
+
+            <!-- Letter 1 -->
+            <div class="letter" id="letter1" data-top="45%" data-left="25%" data-rotate="-15deg">
+            <div class="card-side front">
+                <img src="images/letter1.png" alt="Letter 1 Front">
+            </div>
+            <div class="card-side back">
+                <p>In the vastness of this life, your heart remains my only definitive sanctuary</p>
+            </div>
+            </div>
+
+            <!-- Letter 2 -->
+            <div class="letter" id="letter2" data-top="43%" data-left="37%" data-rotate="-7deg">
+            <div class="card-side front">
+                <img src="images/letter2.png" alt="Letter 2 Front">
+            </div>
+            <div class="card-side back">
+                <p>You are the luminous thread that weaves grace into the fabric of my mundane days</p>
+            </div>
+            </div>
+
+            <!-- Letter 3 -->
+            <div class="letter" id="letter3" data-top="41%" data-left="49%" data-rotate="0deg">
+            <div class="card-side front">
+                <img src="images/letter3.png" alt="Letter 3 Front">
+            </div>
+            <div class="card-side back">
+                <p>My soul finds its most sublime reflection in the warmth of your unwavering love</p>
+            </div>
+            </div>
+
+            <!-- Letter 4 -->
+            <div class="letter" id="letter4" data-top="43%" data-left="61%" data-rotate="8deg">
+            <div class="card-side front">
+                <img src="images/letter4.png" alt="Letter 4 Front">
+            </div>
+            <div class="card-side back">
+                <p>Loving you is an effortless transcendence; a journey with no horizon and no end.</p>
+            </div>
+            </div>
+
+            <!-- Letter 5 -->
+            <div class="letter" id="letter5" data-top="45%" data-left="73%" data-rotate="15deg">
+            <div class="card-side front">
+                <img src="images/letter5.png" alt="Letter 5 Front">
+            </div>
+            <div class="card-side back">
+                <p>To hold your hand is to possess a treasure that outweighs the opulence of the world.
+</p>
+            </div>
+            </div>
+            
+        </div>
+        </div>
+
+
+            <!-- Gallery Page -->
+            <div id="gallery" class="content">
+                <button class="back-btn" onclick="showContent('home')"><i class="fas fa-arrow-left"></i></button>
+                    <h2 class="player-header" style="text-align: center; margin-bottom: 40px;">
+        coba klik bakal muncul apaaa
+    </h2>
+                <div class="gallery-container">
+                    <div class="gallery-grid" id="galleryGrid">
+                        <div class="photo-container">
+                            <div class="photo-spinner" onclick="flipPhoto(this)">
+                                <div class="photo-front">
+                                   <img src="images/photo1.jpeg" alt="Memory 1">
+                                </div>
+                                <div class="photo-back">
+                                    <div class="hidden-message">Aku bener-bener bersyukur</div>
+                                    <div class="message-subtitle"> punya kamu yang selalu ada buat aku, makasih ya sayang udah nemenin dan hebat banget bisa bertahan sejauh ini sampai kita sampai di 34 bulan bareng-bareng.
+</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="photo-container">
+                            <div class="photo-spinner" onclick="flipPhoto(this)">
+                                <div class="photo-front">
+                                   <img src="images/photo2.jpeg" alt="Memory 2">
+                                </div>
+                                <div class="photo-back">
+                                    <div class="hidden-message">Rasanya gak ada</div>
+                                    <div class="message-subtitle">hal yang lebih indah selain punya kamu di sisiku, dan aku bener-bener berterima kasih buat segala sabar dan cinta kamu selama 34 bulan perjalanan yang luar biasa ini.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="photo-container">
+                            <div class="photo-spinner" onclick="flipPhoto(this)">
+                                <div class="photo-front">
+                                   <img src="images/photo3.jpeg" alt="Memory 3">
+                                </div>
+                                <div class="photo-back">
+                                    <div class="hidden-message">Setiap hari</div>
+                                    <div class="message-subtitle">aku selalu ngerasa beruntung bisa milikin kamu, makasih ya udah mau jadi bagian paling berharga yang selalu ngedukung aku sampai akhirnya kita ngelewatin 34 bulan yang penuh warna ini.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="photo-container">
+                            <div class="photo-spinner" onclick="flipPhoto(this)">
+                                <div class="photo-front">
+                                   <img src="images/photo4.jpeg" alt="Memory 4">
+                                </div>
+                                <div class="photo-back">
+                                    <div class="hidden-message">Makasih ya</div>
+                                    <div class="message-subtitle">udah jadi orang yang paling ngertiin aku, jujur aku gak tau gimana jadinya 34 bulan ini kalau bukan kamu perempuan hebat yang nemenin setiap proses tumbuh aku dari awal sampai sekarang.
+</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="photo-container">
+                            <div class="photo-spinner" onclick="flipPhoto(this)">
+                                <div class="photo-front">
+                                   <img src="images/photo5.jpeg" alt="Memory 5">
+                                </div>
+                                <div class="photo-back">
+                                    <div class="hidden-message">Aku cuma mau bilang</div>
+                                    <div class="message-subtitle">kalau aku sangat bersyukur atas kehadiran kamu di hidupku, makasih udah mau terus berjuang dan berbagi tawa bareng aku selama 34 bulan yang gak akan pernah aku lupain ini.
+</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="photo-container">
+                            <div class="photo-spinner" onclick="flipPhoto(this)">
+                                <div class="photo-front">
+                                   <img src="images/photo6.jpeg" alt="Memory 6">
+                                </div>
+                                <div class="photo-back">
+                                    <div class="hidden-message">Punya kamu itu</div>
+                                    <div class="message-subtitle">anugerah terbesar buat aku, dan aku mau makasih banyak karena kamu udah kasih warna yang begitu indah di setiap detik dari 34 bulan yang udah kita laluin bareng.
+</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Kartu ke-7 -->
+                        <div class="photo-container">
+                        <div class="photo-spinner" onclick="flipPhoto(this)">
+                            <div class="photo-front">
+                            <img src="images/photo7.jpeg" alt="Memory 7">
+                            </div>
+                            <div class="photo-back">
+                            <div class="hidden-message">Makasih ya sayang</div>
+                            <div class="message-subtitle">udah milih untuk tetep tinggal, beneran aku ngerasa jadi laki-laki paling bahagia karena punya kamu sebagai alasan aku buat terus semangat selama 34 bulan ini.
+</div>
+                            </div>
+                        </div>
+                        </div>
+
+                        <!-- Kartu ke-8 -->
+                        <div class="photo-container">
+                        <div class="photo-spinner" onclick="flipPhoto(this)">
+                            <div class="photo-front">
+                            <img src="images/photo8.jpeg" alt="Memory 8">
+                            </div>
+                            <div class="photo-back">
+                            <div class="hidden-message">Gak kerasa</div>
+                            <div class="message-subtitle">kita udah sampai di titik 34 bulan ini, aku bersyukur banget punya kamu yang gak pernah capek buat jadi rumah tempat aku pulang di setiap kondisi apa pun.
+</div>
+                            </div>
+                        </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Playlist Page - Redesigned with Fixed Layout -->
+            <div id="playlist" class="content">
+                <button class="back-btn" onclick="showContent('home')"><i class="fas fa-arrow-left"></i></button>
+                <div class="playlist-container">
+                    <h2 class="player-header">Our Love Playlist</h2>
+                    
+                    <div class="player-card">
+                        <div class="album-art">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        
+                        <!-- Player Controls at Top -->
+                        <!-- Music Player Display -->
+            <div class="music-player-display">
+            <!-- Judul Lagu Aktif -->
+            <div class="now-playing-title" id="nowPlayingTitle">
+                SAYANG – myasa
+            </div>
+
+            <!-- Tombol Kontrol -->
+            <div class="player-controls">
+                <button class="control-btn" onclick="previousSong()">
+                <i class="fas fa-step-backward"></i>
+                </button>
+                <button class="play-btn" id="playButton" onclick="togglePlay()">
+                <i class="fas fa-play" id="playIcon"></i>
+                </button>
+                <button class="control-btn" onclick="nextSong()">
+                <i class="fas fa-step-forward"></i>
+                </button>
+            </div>
+            </div>
+
+
+                        <div class="progress-container" onclick="seekAudio(event)">
+                            <div class="progress-bar" id="progressBar"></div>
+                        </div>
+                        
+                        <div class="time-display">
+                            <span id="currentTime">0:00</span>
+                            <span id="totalTime">3:10</span>
+                        </div>
+                        
+                        <!-- Track List -->
+                        <div class="track-list" id="trackList">
+                            <div class="track-item" data-index="0">
+                                <div class="track-number">1</div>
+                                <div class="track-info">
+                                    <div class="track-title">Risk It All</div>
+                                    <div class="track-artist">Bruno Mars</div>
+                                </div>
+                                <div class="track-duration">3:10</div>
+                                <div class="track-play-icon">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                            <div class="track-item" data-index="1">
+                                <div class="track-number">2</div>
+                                <div class="track-info">
+                                    <div class="track-title">Lebih Indah</div>
+                                    <div class="track-artist">Adera</div>
+                                </div>
+                                <div class="track-duration">2:45</div>
+                                <div class="track-play-icon">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                            <div class="track-item" data-index="2">
+                                <div class="track-number">3</div>
+                                <div class="track-info">
+                                    <div class="track-title">It's You</div>
+                                    <div class="track-artist">Sezairi</div>
+                                </div>
+                                <div class="track-duration">4:20</div>
+                                <div class="track-play-icon">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                            <div class="track-item" data-index="3">
+                                <div class="track-number">4</div>
+                                <div class="track-info">
+                                    <div class="track-title">From Little Wave</div>
+                                    <div class="track-artist">Doyoung</div>
+                                </div>
+                                <div class="track-duration">3:45</div>
+                                <div class="track-play-icon">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                            <div class="track-item" data-index="4">
+                                <div class="track-number">5</div>
+                                <div class="track-info">
+                                    <div class="track-title">Memory</div>
+                                    <div class="track-artist">Doyoung</div>
+                                </div>
+                                <div class="track-duration">4:05</div>
+                                <div class="track-play-icon">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Popup -->
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <div class="popup-message">dah tw si ak</div>
+            <button class="popup-button" onclick="closePopup()">OK</button>
+        </div>
+    </div>
+    
+
+    <script>
+        // Navigation between pages
+        function showContent(pageId) {
+            // Hide all content
+            const contents = document.querySelectorAll('.content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Show selected content
+            document.getElementById(pageId).classList.add('active');
+            
+            // Reset letters when leaving letters page
+            if (pageId !== 'letters') {
+                closeFocusedLetter();
+            }
+        }
+        
+        // Quiz popup functionality
+        function showPopup() {
+            document.getElementById('popup').style.display = 'flex';
+        }
+        
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+            showContent('home');
+        }
+        
+        // === LETTERS (Fade + Zoom Smooth) ===
+        let focusedLetter = null;
+
+        function setupLetters() {
+        const letters = document.querySelectorAll(".letter");
+        const container = document.getElementById("lettersContainer");
+
+        // Set posisi awal dari data attributes
+        letters.forEach(letter => {
+            const top = letter.dataset.top;
+            const left = letter.dataset.left;
+            const rotate = letter.dataset.rotate;
+            letter.style.top = top;
+            letter.style.left = left;
+            letter.style.transform = 'translate(-50%, -50%) scale(1)';
+
+        });
+
+        // Klik surat → buka / tutup
+        letters.forEach(letter => {
+            letter.addEventListener("click", e => {
+            e.stopPropagation();
+            if (focusedLetter === letter) {
+                closeLetter(letter);
+            } else {
+                focusLetter(letter);
+            }
+            });
+        });
+
+        // Klik area luar → tutup surat
+        container.addEventListener("click", e => {
+            if (focusedLetter && !focusedLetter.contains(e.target)) {
+            closeLetter(focusedLetter);
+            }
+        });
+        }
+
+        function focusLetter(letter) {
+        closeLetter(focusedLetter);
+        focusedLetter = letter;
+
+        // Blur surat lain
+        document.querySelectorAll(".letter").forEach(l => {
+            if (l !== letter) l.classList.add("blurred");
+            else l.classList.remove("blurred");
+        });
+
+        // Zoom ke tengah
+        setTimeout(() => {
+            letter.classList.add("focused");
+        }, 50);
+
+        // Fade ke teks belakang
+        setTimeout(() => {
+            letter.classList.add("show-back");
+        }, 300);
+        }
+
+        function closeLetter(letter) {
+        if (!letter) return;
+        letter.classList.remove("show-back");
+
+        // Kembalikan posisi & hilangkan blur
+        setTimeout(() => {
+            letter.classList.remove("focused");
+            document.querySelectorAll(".letter").forEach(l => l.classList.remove("blurred"));
+        }, 300);
+
+        focusedLetter = null;
+        }
+
+
+        
+        // Letters controls
+        function resetLetters() {
+            closeFocusedLetter();
+            const letters = document.querySelectorAll('.letter');
+            
+            // Reset to initial fan positions
+            letters[0].style.top = '45%';
+            letters[0].style.left = '25%';
+            letters[0].style.transform = 'translateY(-50%) rotate(-15deg)';
+            letters[0].style.zIndex = '1';
+
+            letters[1].style.top = '43%';
+            letters[1].style.left = '35%';
+            letters[1].style.transform = 'translateY(-50%) rotate(-7deg)';
+            letters[1].style.zIndex = '2';
+
+            letters[2].style.top = '41%';
+            letters[2].style.left = '45%';
+            letters[2].style.transform = 'translateY(-50%) rotate(0deg)';
+            letters[2].style.zIndex = '3';
+
+            letters[3].style.top = '43%';
+            letters[3].style.left = '55%';
+            letters[3].style.transform = 'translateY(-50%) rotate(7deg)';
+            letters[3].style.zIndex = '4';
+
+            letters[4].style.top = '45%';
+            letters[4].style.left = '65%';
+            letters[4].style.transform = 'translateY(-50%) rotate(15deg)';
+            letters[4].style.zIndex = '5';
+        }
+
+        
+        // Gallery functionality - Photo Spinner
+        function flipPhoto(element) {
+            element.classList.toggle('flipped');
+        }
+        
+        // Music Player functionality - FIXED
+        let currentSongIndex = 0;
+        let isPlaying = false;
+        let progressInterval = null;
+        let currentProgress = 0;
+        
+        // Playlist data
+        const playlist = [
+            {
+                title: "Risk It All",
+                artist: " Bruno Mars",
+                duration: "3:10",
+                totalSeconds: 190
+            },
+            {
+                title: "Lebih Indah",
+                artist: "Adera", 
+                duration: "2:45",
+                totalSeconds: 165
+            },
+            {
+                title: "It's You",
+                artist: "Sezairi",
+                duration: "4:20",
+                totalSeconds: 260
+            },
+            {
+                title: "From Little Wave",
+                artist: "Doyoung",
+                duration: "3:45",
+                totalSeconds: 225
+            },
+            {
+                title: "Memory",
+                artist: "Doyoung",
+                duration: "4:05",
+                totalSeconds: 245
+            }
+        ];
+
+        
+        
+        function togglePlay() {
+            const playIcon = document.getElementById('playIcon');
+            
+            if (isPlaying) {
+                // Pause playback
+                isPlaying = false;
+                playIcon.className = 'fas fa-play';
+                clearInterval(progressInterval);
+            } else {
+                // Start playback
+                isPlaying = true;
+                playIcon.className = 'fas fa-pause';
+                startPlayback();
+            }
+        }
+        
+        function startPlayback() {
+            const progressBar = document.getElementById('progressBar');
+            const currentTimeEl = document.getElementById('currentTime');
+            
+            clearInterval(progressInterval);
+            
+            progressInterval = setInterval(() => {
+                if (isPlaying && currentProgress < 100) {
+                    currentProgress += (100 / (playlist[currentSongIndex].totalSeconds * 2));
+                    progressBar.style.width = `${currentProgress}%`;
+                    
+                    // Calculate time display
+                    const totalSeconds = playlist[currentSongIndex].totalSeconds;
+                    const currentSeconds = Math.floor(totalSeconds * (currentProgress / 100));
+                    const minutes = Math.floor(currentSeconds / 60);
+                    const seconds = currentSeconds % 60;
+                    currentTimeEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                    
+                    // Auto next song when finished
+                    if (currentProgress >= 100) {
+                        nextSong();
+                    }
+                }
+            }, 500);
+        }
+        
+        function seekAudio(event) {
+            if (!isPlaying) return;
+            
+            const progressContainer = event.currentTarget;
+            const clickX = event.offsetX;
+            const width = progressContainer.offsetWidth;
+            currentProgress = (clickX / width) * 100;
+            
+            document.getElementById('progressBar').style.width = `${currentProgress}%`;
+            
+          
+            const totalSeconds = playlist[currentSongIndex].totalSeconds;
+            const currentSeconds = Math.floor(totalSeconds * (currentProgress / 100));
+            const minutes = Math.floor(currentSeconds / 60);
+            const seconds = currentSeconds % 60;
+            document.getElementById('currentTime').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('nowPlayingTitle').textContent = `${song.title} – ${song.artist}`;
+
+        }
+        
+        function previousSong() {
+            currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
+            loadSong(currentSongIndex);
+            if (isPlaying) {
+                startPlayback();
+            }
+        }
+        
+        function nextSong() {
+            currentSongIndex = (currentSongIndex + 1) % playlist.length;
+            loadSong(currentSongIndex);
+            if (isPlaying) {
+                startPlayback();
+            }
+        }
+        
+        function loadSong(index) {
+    const song = playlist[index];
+    
+    // Update song info
+    document.getElementById('totalTime').textContent = song.duration;
+    
+    currentProgress = 0;
+    document.getElementById('progressBar').style.width = '0%';
+    document.getElementById('currentTime').textContent = '0:00';
+    document.getElementById('nowPlayingTitle').textContent = `${song.title} – ${song.artist}`;
+
+}
+
+        
+        // Track item click handlers
+        document.querySelectorAll('.track-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const index = parseInt(this.dataset.index);
+                if (currentSongIndex !== index) {
+                    currentSongIndex = index;
+                    loadSong(index);
+                    
+                    // Auto-play if player was playing
+                    if (isPlaying) {
+                        startPlayback();
+                    }
+                }
+            });
+        });
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            setupLetters();
+            loadSong(0);
+        });
+
+       function chooseAnswer(answerText) {
+  const chatContainer = document.getElementById("chatContainer");
+  
+  // Hapus tombol jawaban (yang sekarang di kiri)
+  const answerDiv = chatContainer.querySelector('div[style*="align-items: flex-start"]');
+  if (answerDiv) answerDiv.remove();
+
+
+  // Tambah jawaban user (KANAN)
+  const userBubble = document.createElement("div");
+  userBubble.style.cssText = "align-self: flex-end; background-color: #8fc9ff; color: white; padding: 12px 16px; border-radius: 18px; max-width: 50%; margin-bottom: 10px;";
+  userBubble.textContent = answerText;
+  chatContainer.appendChild(userBubble);
+
+  // Respon My Love (KIRI)
+  setTimeout(() => {
+    let responseText = "";
+    if (answerText === "temen deket") {
+      responseText = "jadi kamu lebih pilih dia dibanding ak? hhh ok fine";
+    } else if (answerText === "kamu") {
+      responseText = "kok jahat kok ga selamatin dia, kasihan tau!";
+    } else if (answerText === "ikut nyebur aja") {
+      responseText = "kamu kan gabisa berenang...";
+    }
+
+    const replyBubble = document.createElement("div");
+    replyBubble.style.cssText = "align-self: flex-start; background-color: #8fc9ff; color: white; padding: 12px 16px; border-radius: 18px; max-width: 60%; margin-bottom: 10px;";
+    replyBubble.textContent = responseText;
+    chatContainer.appendChild(replyBubble);
+    
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+  }, 600);
+}
+
+// Force gallery layout refresh on mobile
+function refreshGalleryLayout() {
+    const photoContainers = document.querySelectorAll('.photo-container');
+    photoContainers.forEach(container => {
+        // Force square aspect ratio
+        const width = container.offsetWidth;
+        container.style.height = width + 'px';
+    });
+}
+
+// Panggil saat halaman dimuat dan saat resize
+document.addEventListener('DOMContentLoaded', function() {
+    refreshGalleryLayout();
+    window.addEventListener('resize', refreshGalleryLayout);
+    
+    // Juga panggil saat masuk ke gallery
+    const galleryBtn = document.querySelector('.menu-item[onclick="showContent(\'gallery\')"]');
+    if (galleryBtn) {
+        galleryBtn.addEventListener('click', function() {
+            setTimeout(refreshGalleryLayout, 100);
+        });
+    }
+});
+
+    </script>
+</body>
+</html>
